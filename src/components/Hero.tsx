@@ -1,14 +1,8 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/hero-flowers.jpg";
 
 const Hero = () => {
-  const scrollToCatalog = () => {
-    const element = document.getElementById("catalog");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-soft">
       <div 
@@ -34,24 +28,23 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg"
-              onClick={scrollToCatalog}
-              className="bg-gradient-primary text-primary-foreground shadow-soft hover:shadow-glow text-lg px-8 py-6"
-            >
-              Заказать букет
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline"
-              onClick={() => {
-                const element = document.getElementById("about");
-                if (element) element.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 py-6"
-            >
-              Узнать больше
-            </Button>
+            <Link to="/catalog">
+              <Button 
+                size="lg"
+                className="bg-gradient-primary text-primary-foreground shadow-soft hover:shadow-glow text-lg px-8 py-6"
+              >
+                Заказать букет
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button 
+                size="lg"
+                variant="outline"
+                className="border-2 border-primary text-primary hover:bg-primary/10 text-lg px-8 py-6"
+              >
+                Узнать больше
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
