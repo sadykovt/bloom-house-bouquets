@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import OrderForm from "@/components/OrderForm";
 import rosesBouquet from "@/assets/roses-bouquet.jpg";
 import tulipsBouquet from "@/assets/tulips-bouquet.jpg";
 import luxuryBouquet from "@/assets/luxury-bouquet.jpg";
@@ -18,6 +19,13 @@ type Category = "Все" | "Розы" | "Тюльпаны" | "Лилии" | "О�
 
 const FlowerCatalog = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>("Все");
+  const [orderDialogOpen, setOrderDialogOpen] = useState(false);
+  const [selectedBouquet, setSelectedBouquet] = useState<{ name: string; price: string } | null>(null);
+
+  const handleOrderClick = (bouquet: { name: string; price: string }) => {
+    setSelectedBouquet(bouquet);
+    setOrderDialogOpen(true);
+  };
 
   const categories: Category[] = ["Все", "Розы", "Тюльпаны", "Лилии", "Орхидеи", "Полевые", "Смешанные"];
 
@@ -183,6 +191,7 @@ const FlowerCatalog = () => {
                   </span>
                   <Button 
                     size="sm"
+                    onClick={() => handleOrderClick({ name: bouquet.name, price: bouquet.price })}
                     className="bg-gradient-primary text-primary-foreground shadow-soft hover:shadow-glow"
                   >
                     Заказать
@@ -192,6 +201,15 @@ const FlowerCatalog = () => {
             </Card>
           ))}
         </div>
+
+        {selectedBouquet && (
+          <OrderForm
+            open={orderDialogOpen}
+            onOpenChange={setOrderDialogOpen}
+            bouquetName={selectedBouquet.name}
+            bouquetPrice={selectedBouquet.price}
+          />
+        )}
       </div>
     </section>
   );
